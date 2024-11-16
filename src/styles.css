@@ -25,3 +25,13 @@ label {
 button {
   margin: 8px;
 }
+.nav-bar {
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+  text-decoration: none;
+}
+.nav-bar a {
+  text-decoration: none;
+  color: "#eee";
+}
