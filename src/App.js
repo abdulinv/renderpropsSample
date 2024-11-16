@@ -6,14 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateMessage } from "./redux/SampleSlice";
 import { store } from "./store";
 import { fetchPost } from "./redux/postSlice";
+import { Suspense, lazy } from "react";
+
+const Posts = lazy(() => import("./posts"));
 export default function App() {
   const message = useSelector((state) => state.sample1.message);
 
-  const { data: posts, loading, error } = useSelector((state) => state.posts);
-  console.log(posts);
   const select = (state) => state.sample2.message;
   const dispatch = useDispatch();
-  console.log("app render", loading);
   return (
     <div className="App">
       {/* This list is for render props example */}
@@ -38,14 +38,11 @@ export default function App() {
           }
         }}
       >
-        {loading ? "fetch post loading" : "fetch post "}
+        Fetch posts
       </button>
-      {loading && <h1>Loading.......</h1>}
-      {error && <h1>{error}</h1>}
-      {!loading &&
-        !error &&
-        posts?.length &&
-        posts.map((item) => <p key={item.id}>{item.title}</p>)}
+      <Suspense fallback={<p>lazy</p>}>
+        <Posts />
+      </Suspense>
     </div>
   );
 }
