@@ -7,9 +7,13 @@ import { store } from "./store";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Layout } from "./RootLayout";
 import { PostsMain } from "./PostsMain";
+import Login from "./Login";
+import { withProtected } from "./hoc/withProtectedRoutes";
+import { protectedLoader } from "./utils/auth";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
+const ProtectedPosts = withProtected(PostsMain);
 const router = createBrowserRouter([
   {
     path: "/",
@@ -18,11 +22,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/posts",
-        element: <PostsMain />,
+        element: <ProtectedPosts />,
       },
       {
         index: true,
         element: <p> This is starting page . You can switch over nav items</p>,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
     ],
   },

@@ -13,6 +13,10 @@ const navItems = [
     title: "Home",
     to: "/",
   },
+  {
+    title: "Login",
+    to: "/login",
+  },
 ];
 export function Layout() {
   return (
